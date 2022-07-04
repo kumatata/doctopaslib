@@ -1,0 +1,30 @@
+version: '3'
+
+x-cache-from:
+  - &app-cache-from
+    cache_from:
+      - php:8.0-fpm
+
+services:
+  db:
+    image: postgres:13-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: doctopaslib
+    volumes:
+      - db-data:/var/lib/postgresql/data:rw
+    ports:
+      - target: 5432
+        published: 5432
+        protocol: tcp
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - '8082:8080'
+
+volumes:
+  db-data: {}
+  app-cache: {}
