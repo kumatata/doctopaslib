@@ -4,11 +4,11 @@ from django.contrib.postgres.fields import ArrayField
 
 
 class Specialites(models.Model):
-    names =  ArrayField(ArrayField(models.CharField(max_length=10, default=list)))
+    name =  models.CharField(max_length=20)
     praticien = models.ForeignKey(User,on_delete=models.CASCADE)
 
 class Prestations(models.Model):
-    names = models.CharField(max_length=200)
+    names =  ArrayField(ArrayField(models.CharField(max_length=10, default=list)))
     specialite = models.ForeignKey(Specialites, on_delete=models.CASCADE)
 
 
