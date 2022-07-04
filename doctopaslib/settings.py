@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'managements.apps.ManagementConfig',
+    'management.apps.ManagementConfig',
 ]
 
 MIDDLEWARE = [
@@ -51,8 +51,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'doctopaslib.urls'
-
-AUTH_USER_MODEL = 'management.User'
 
 TEMPLATES = [
     {
@@ -78,8 +76,12 @@ WSGI_APPLICATION = 'doctopaslib.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'doctopaslib',
+        'USER': 'user',
+        'PASSWORD': 'password',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
