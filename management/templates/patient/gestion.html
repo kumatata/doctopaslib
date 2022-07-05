@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Mes Rendez-Vous</h2>
+
+    <section id="list-reservations">
+        {% for rese in reservations %}
+        <div id="reservation-card">
+            <p>{{ rese.date_reservation }}</p>
+            <p> {{ rese.prestation.specialite.praticien.get_full_name}} | {{rese.prestation.name}} </p>
+            <p> {{rese.patient.get_full_name}}</p>
+            <button> Reprendre rendez-vous avec {{rese.prestation.specialite.praticien.get_full_name }} </button>
+        </div>
+        {% endfor %}
+    </section>
+
+{% endblock content %}
