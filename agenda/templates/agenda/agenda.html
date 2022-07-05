@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+
+{% load i18n static %}
+
+{% block head_title %}{% trans "Fullcalendar" %}{% endblock %}
+
+{% block tab_id %}id="home_tab"{% endblock %}
+
+{% block extra_head %}
+<link rel='stylesheet' type='text/css' href="{% static 'fullcalendar/dist/fullcalendar.css' %}" />
+<script type='text/javascript' src="{% static 'moment/moment.js' %}"></script>
+<script type='text/javascript' src="{% static 'fullcalendar/dist/fullcalendar.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+<div id="calendar"></div>
+<script type='text/javascript'>
+$(document).ready(function() {
+
+    // page is now ready, initialize the calendar...
+    $('#calendar').fullCalendar({
+        // put your options and callbacks here
+      themeSystem: 'jquery-ui',
+      initialView: 'timeGridWeek',
+      header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'month,agendaWeek,agendaDay,listMonth'
+      },
+      weekNumbers: true,
+      eventLimit: true, // allow "more" link when too many events
+      events: 'https://fullcalendar.io/api/demo-feeds/events.json'
+    })
+
+});
+</script>
+{% endblock %}
