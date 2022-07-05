@@ -1,10 +1,6 @@
-{% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'management/style.css' %}">
-
-<h1>DOCTOPASLIB</h1>
-
-<main>
-    <h2>Choisissez une spécialité</h2>
+{% extends 'base.html' %}
+{% block content %}
+<h2>Choisissez une spécialité</h2>
 
     <div>
         <select name="specialites" id="spe-select">
@@ -24,5 +20,6 @@
         </div>
         {% endfor %}
     </section>
-</main>
+
+{% endblock content %}
 
