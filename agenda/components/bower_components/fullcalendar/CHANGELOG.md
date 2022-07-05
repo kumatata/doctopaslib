@@ -1,4 +1,586 @@
 
+v5.11.0 (2022-04-08)
+--------------------
+
+- internal changes for compatibility with React 18
+
+
+v5.10.2 (2022-02-09)
+--------------------
+
+- bootstrap 5 support, via `@fullcalendar/bootstrap5` package (#6299)
+- luxon 2 support, via `@fullcalendar/luxon2` package (#6502)
+- angular 13 support ([ang-387][ang-387])
+
+[ang-387]: https://github.com/fullcalendar/fullcalendar-angular/issues/387
+
+
+v5.10.1 (2021-11-02)
+--------------------
+
+- locale strings for the recent WAI-ARIA improvements:
+  - nb (#6610)
+  - de (#6597)
+  - sv (#6592)
+
+
+v5.10.0 (2021-10-13)
+--------------------
+
+- feature: WAI-ARIA improvements:
+  - toolbar (#6521)
+    - human-readable `title` attributes on all buttons. new options:
+      - `buttonHints`
+      - `customButtons.hint`
+      - `viewHint` (ex: `$0 view` -> `"month view"`)
+    - `aria-labelledby` attribute connecting view-title with view-container
+  - event elements (#3364)
+    - previously, only events with an `event.url` property were tabbable by the end-user.
+      now, events *without* urls can be made tabbable by enabling `event.interactive` or by
+      enabling the calendar-wide `eventInteractive` option.
+    - when focused, pressing enter/spacebar will trigger an `eventClick`
+  - more-links and popover (#6523)
+    - human-readable `title` attributes on "+more" links via new option `moreLinkHint`
+    - when focused, pressing enter/spacebar will open popover
+    - `aria-controls`/`aria-expanded` attributes connecting link to popover
+    - `aria-labelledby` attribute connecting popover-title to popover
+    - `aria-label` attribute describing "X" close icon via new option `closeHint`
+    - pressing escape key closes popover
+  - nav-links (#6524)
+    - human-readable `title` attributes on all navLinks via new option `navLinkHint`
+    - when focused, pressing enter/spacebar will trigger `navLinkClick`
+  - table-based views (#6526)
+    - all cells within thead elements have been made into `<th>` tags
+    - retrofit the necessarily non-ARIA-friendly table markup with `role` tags. the root table is a
+      `grid`, children have been given `rowgroup`/`row`/`columnheader`/`rowheader`/`cell`, and
+      non-functional table elements have been given `presentation`.
+    - in timegrid views, the time-axis axis has been removed from the accessibility tree
+  - list-view (#6525)
+    - introduced a table-header specifically for screen readers. header cells label the time/event
+      columns using the following new options: `timeHint` and `eventHint`
+    - removed the "dot" column from the accessibility tree
+- feature: date formatting option `week` now accepts `'long'` if locale defines `weekTextLong`
+- bugfix: timeline-view events hidden by `eventMaxStack` sometimes appear over other events (#6543)
+- bugfix: daygrid event rendering with `dayMaxEventRows` and custom `eventOrder` can cause infinite loop (#6573)
+- bugfix: content-injected html/domNodes as view-specific options don't clear when switching views (#6079, #6555)
+- bugfix: more compliant CSS with Sass processors (#6564)
+- locale: added si-lk (#6553)
+
+HELP WANTED populating new options in locales (examples: [es][es-aria-example], [en-GB][en-aria-example])
+- `buttonHints`
+- `viewHint`
+- `weekTextLong`
+- `moreLinkHint`
+- `navLinkHint`
+- `closeHint`
+- `timeHint`
+- `eventHint`
+
+[es-aria-example]: https://github.com/fullcalendar/fullcalendar/commit/63cd61bd89ae56642e76e3ea8b3a44cbd3fe2555
+[en-aria-example]: https://github.com/fullcalendar/fullcalendar/commit/d8e33a04ecc9bd8dd54f1d2c39aaa7ed919f896c
+
+
+v5.9.0 (2021-07-28)
+-------------------
+- fix: dayGrid events sometimes overlap when eventOrderStrict:true (#6393)
+- fix: timeline events incorrectly positioned when uneven heights (#6395)
+- fix: dayGrid events snap to top of cell while resizing (#6308)
+- fix: duplicate events in dayGrid popover (#6397)
+- fix: sticky elements within header of timeline views not sticking
+- fix: resource-timeline views with sticky elements not working within shadow DOM (#5888)
+- fix: event dragging auto-scroll does not work within shadow DOM (#6428)
+- fix: cannot resize timeline events via touch within shadow DOM (#6429, #6449)
+- fix: error with eventContent, domNodes, and view-specific options (#6079)
+- fix: times events do not get printed in Firefox using adaptive plugin (#6438)
+- fix: icalendar events with RECURRENCE-ID are displayed twice (#6451)
+- fix: typing of Event::setProp does not allow boolean (#6445)
+- fix: typing fix rrule's freq property (#6235)
+- locale: added Samoan (#6368)
+- locale: added Central Kurdish (#6400)
+- locale: added Khmer (#6416)
+- locale: fixed Hungarian (#6229)
+
+
+v5.8.0 (2021-06-15)
+-------------------
+- fix: events not rendering in Jest environment (#6377)
+- fix: prev button sometimes ineffective when dateIncrement < view's duration (#5319, #4678)
+- fix: changeDate ineffective when date already in view (#4929)
+- fix: upgrade tslib to guarantee __spreadArray (#6376)
+- fix: eventOrderStrict positioning problems (#5767)
+
+
+v5.7.2 (2021-06-03)
+-------------------
+- fixed table-related Chrome 91 bug causing timegrid view with allDaySlot:false and certain
+  custom CSS to appear broken (#6338, #6343)
+
+
+v5.7.1 (2021-06-02)
+-------------------
+- updated Angular connector to support Angular 12 ([angular-369](https://github.com/fullcalendar/fullcalendar-angular/issues/369))
+- new Vue 3 connector ([vue-131](https://github.com/fullcalendar/fullcalendar-vue/issues/131))
+
+
+v5.7.0 (2021-05-11)
+-------------------
+
+- feature: +more popover for timegrid (#4218)
+- feature: +more popover for timeline (#4827)
+- feature: eventShortHeight for timegrid
+- feature: eventMinHeight for timegrid (#961)
+- feature: eventMinWidth for timeline (#4823)
+- feature: eventOrderStrict flag to ensure strict event ordering (#5766, #5767)
+- feature: scrollTimeReset flag to not reset scroll state across dates (#6178)
+- fix: events can be completely hidden behind others with custom eventOrder (#6019)
+- fix: less homogeneous event widths in timegrid (#5004)
+- fix: +more shows on days with less events than dayMaxEvents (#6187)
+- fix: +more popover can be scrolled down with page scroll (#5532)
+- fix: +more popover falls behind the sticky dates header (#5782)
+- fix: all-day events are displayed in front of the sticky header (#5596)
+- fix: respect duration in eventOrder as highest precedence (#5481)
+- fix: refetching events should keep event popover open (#3958)
+- fix: accidental +more popover close with shadow dom (#6205)
+- fix: dayGrid events stretched out of cells in print media (#6300)
+- dev: when attempting `npm install` in the dev repo, will throw an error saying to use yarn (#5504)
+- dev: ensure building on windows works (#5366)
+obscure breaking changes:
+- renamed fc-timegrid-event-condensed className to fc-timegrid-event-short
+- removed config.timeGridEventCondensedHeight
+
+
+v5.6.0 (2021-03-28)
+-------------------
+
+- feature: icalendar events receive URL (#6173)
+- feature: icalendar events receive location, organizer, description in extendedProps (#6097)
+- fix: resizing resource column larger does not always update column widths (#6140)
+- fix: print view cut off for wide liquid-width calendar (#5707)
+- fix: event start time is limited by what is visible by slotMinTime (#6162)
+- fix: Event::setProp can't change the id (#4730)
+- fix: icalendar event source does not update on refreshEvents (#6194)
+- fix: business hours per resource do not fill row height with expandRows (#6134)
+- fix: icalendar recurring events ignoring count rule (#6190)
+- fix: icalendar recurring timed-events with wrong times (#6139, #6106)
+- fix: removed accidental ical.js dependency in common's package.json (#6171)
+- fix: for gcal events, restore extendedProperties (#5083)
+- fix: for gcal events, make attachments available (#5024)
+- fix: can't parse rrule strings with newlines after UNTIL statements (#6126)
+- locale: fixed typos in Tamil (#6115)
+- locale: added Bengali (#6096)
+- breaking-change: for icalendar recurring event that don't specify dtend/duration,
+    the resulting Event object's end is now determined by forceEventDuration, defaultTimedEventDuration,
+    and defaultAllDayEventDuration, whereas previously it was *sometimes* null.
+
+
+v5.5.1 (2021-01-16)
+-------------------
+
+- view styles lost after changing to view with allDaySlot:false, view-specific dayHeaders (#6069)
+- type error when slotDuration is in whole days (#5952)
+- rrule byweekday property not working (#6059)
+- support for recurring events in iCalendar feed (#6068)
+- add Indian/Tamil language support (#6061)
+- error in @fullcalendar/scrollgrid with NextJS (SSR) (#6037)
+- removed unnecessary use of Promise in icalendar package. restores IE11 compatibility
+
+
+v5.5.0 (2020-12-19)
+-------------------
+
+- icalendar support (#1580)
+- support exrule and exdate for rrule plugin (#4439)
+- support for Angular 11
+- fix: recurring events missing with dtstart in UTC and timeZone not UTC (#5993)
+- fix: events can have a gap between and take more rows than dayMaxEventRows when using eventOrder (#5883)
+- fix: events dragged from the More popup to another resource drop on the wrong resource (#5593)
+- fix: week number rendered twice in ResourceTimeGridView (#5890)
+- fix: nowIndicator not positioned correctly for resourceTimelineYear view with slot duration 1 month (#5999)
+- fix: oldResource and newResource missing from EventDropArg typescript definition (#6010)
+- fix: loading callback fires before resources are done loading and again after (#5896)
+- fix: locales are not compatible with IE 11 (#6014)
+- fix: IE11 freezes trying to display dayGrid with dayMinWidth (#5971)
+- fix: calling revert func within eventChange would erase affected event
+- locale: add Armenian
+- locale: add Austrian
+- locale: add Welsh
+- locale: add Esperanto
+- locale: improve Dutch
+- breaking-change: EventDropArg typescript type moved from interaction package to core
+
+
+v5.4.0 (2020-11-11)
+-------------------
+
+- new fixedMirrorParent settings for drag-n-drop. workaround for #4673
+- rrule exclusion doesn't work while adding the 'Z' char for RRule datetimes (#5726)
+- fix JS error when using dayMaxEventRows on small screens (#5850, #5863)
+- export types for ResourceFunc and ResourceInput (#5797)
+- more descriptive license key warning (#5910)
+- better compatibility with Webpack 5, deeming `resolve.fullySpecified` unnecessary (#5822)
+- dist files now include a CJS file. ESM is still used by default in most environments (#5929)
+
+
+v5.3.2 (2020-09-06)
+-------------------
+
+fix: more-link sometimes incorrectly positioned behind events (#5790)
+
+
+v5.3.1 (2020-09-04)
+-------------------
+
+bugfixes:
+- error with stickyScrollings.updateSize in certain 3rd-party environments (#5601)
+- rrule exclusion doesn't work while adding the 'Z' char for RRule datetimes (#5726)
+- more links sometimes hidden behind events with dayMaxEventRows (#5771)
+- wrong version text in dist js files (#5778)
+
+
+v5.3.0 (2020-08-12)
+-------------------
+
+bugfixes:
+- timelineDay with maxTime after 24:00, drag-n-drop behavior (#3900)
+- Resizing on touch devices loses selection (#5706)
+- Alignment of events in dayGridWeek when weekNumbers:true (#5708)
+- Events are not printed in order according to their start time (#5709)
+- scrollTime does not always work on prev/next (#5351)
+- render method not rerendering resourceLabelContent (#5586)
+- timeGrid with dayMinWidth, weekNumber cell collapses (#5684)
+- fix luxon connector browser-global JS file including actual luxon lib
+
+
+v5.2.1 (2020-07-30)
+-------------------
+
+Fixed misconfigured bundledDependencies. Only affected @fullcalendar/core NPM package.
+
+
+v5.2.0 (2020-07-30)
+-------------------
+
+features:
+- provide browser-global JS file for all packages (#5617)
+- indicate which row (or format) is being rendered in slotLabelContent (#5516)
+- nepali locale (#5574)
+
+bugfixes:
+- compatible with server-side rendering (SSR) (#4784)
+- background events don't fire eventClick in daygrid when clicked on day header (#5560)
+- background events don't fire eventClick in timegrid (#5579)
+- bigger touch hit area for selected list-item events in daygrid (#5635)
+- CustomButtonInput click argument type is incorrect (#5432)
+- parse rrule strings the same as objects (#5326)
+- navLinks are not clickable if slotLabelFormat is a moment format (#5317)
+- unswitch CSS variables in v-event.css (#5552)
+- time slots not aligned to labels with dayMinWidth and Bootstrap theme (#5600)
+- expandRows broken for time slat labels when horizontal scrolling (#5674)
+- render method not rerendering resourceLabelContent (#5586)
+- eventReceive/eventLeave is missing revert and relatedEvents (#5610)
+- daygrid event changes between list-item and block, depending on start date (#5634)
+- default scrollTime is not appropriate for month/year view (#5645)
+- naturalBound is null with CSP (#5556)
+- does not support Content Security Policy (CSP) nonce, only unsafe-inline css (#4317)
+- RTL timeline scrolling messed up with nowIndicator (#5632)
+- scrollTime does not always work when changing views (#5351)
+- (p)react maximum recursion with specific resize/scrollbars (#5558, #5606)
+- dayGridMonth overflows in Firefox (#5524)
+
+
+v5.1.0 (2020-06-29)
+-------------------
+
+- fix: css variables for default event border and bg color switched (#5551)
+- fix: eventContent moves arrow event length indicators (#5547)
+- fix: wrong ts types for bootstrapFontAwesome settings (#5548)
+- fix: Dash between event start and end times is "undefined" with
+  eventTimeFormat and moment plugin (#5493)
+- fix: Events get displaced due to incorrect collisions detected depending on
+  browser, zoom level (#5549)
+- fix: Resource rows are initially squished in Chome in timeline view with
+  contentHeight: "auto" and JSON resources (#5545)
+- fix: unwanted text selection while dragging in Safari
+- fix: reintroduce list-view color-change on event-row hover
+
+
+v5.0.1 (2020-06-23)
+-------------------
+
+- fix: give type attribute to buttons in header to prevent form submit (#5529)
+- fix: time axis customization via slotLabelContent causes ugly spacing (#5526)
+- fix: export EventSourceFunc in type definitions (#5530)
+- fix: prevent timed background events from appearing in daygrid
+- fix: change CSS for when 'today' background color is applied
+  - fixes bootstrap-themed popover incorrectly being colored semi-transparent
+  - removes yellow color from date headers in timegrid view, which looks better
+
+
+v5.0.0 (2020-06-21)
+-------------------
+
+Changes since RC:
+- CSS fix for timegrid events. overflow hidden on time text
+- fix where dayMaxEvents would not readjust when increasing height of calendar
+- don't set custom text colors on list-view events or list-item events (#5518)
+- fix event dot color not being customizable (#5522)
+- fix for calendar updating when no options were reset (#5519)
+- fix typescript def omission of eventSource 'method' prop (#5505)
+- fix typescript def problem with schedulerLicenseKey again (#5462)
+
+
+v5.0.0-rc (2020-06-15)
+----------------------
+
+Changes since beta.4:
+  - breaking changes:
+    - renamed `datesDidUpdate` to `datesSet` and added more props to the arg
+    - for `eventResize` callback arg, renamed `prevEvent` to `oldEvent`
+    - resources are ordered by ID by default. no longer sort by natural order
+  - new features:
+    - system for overriding CSS variables
+    - timegrid event titles are sticky-positioned while scrolling
+    - eventDrop now receives relatedEvents prop
+    - eventResize now receives relatedEvents prop
+    - eventReceive now receives relatedEvents prop and a revert function
+    - eventLeave now receives relatedEvents prop and a revert function
+    - eventAdd
+    - eventChange
+    - eventRemove
+    - eventsSet
+    - initialEvents
+    - Event::toPlainObject, Event::toJSON
+    - Event::startStr, Event::endStr
+    - Calendar::addEvent accept `true` for source
+    - resourceAdd
+    - resourceChange
+    - resourceRemove
+    - resourcesSet
+    - initialResources
+    - Resource::setProp
+    - Resource::setExtendedProp
+    - Resource::toPlainObject, Resource::toJSON
+    - View::calendar
+    - TypeScript definitions for Vue connector
+  - bugfixes:
+    - Event popover display issues with many events (#5471)
+    - Jest test runner cannot find fullcalendar modules (#5467)
+    - Incorrect version of tslib required (#5479)
+    - License key option unknown, error in console (#5462)
+    - @fullcalendar/common has no exported member ScrollGridChunkConfig (#5459)
+    - event title should display on same line as time for 30 minute events in grid views (#5447)
+
+
+v5.0.0-beta.4 (2020-05-26)
+--------------------------
+
+Changes since beta.3:
+- features:
+  - improved printing for timeline view (#4813)
+- fixes:
+  - `eventDisplay` not working (#5434)
+  - typescript errors when compiling with tsc (#5446)
+  - `slotLabelFormat` as array not working (#5450)
+  - more exports of typescript interfaces (#5452)
+
+
+v5.0.0-beta.3 (2020-05-20)
+--------------------------
+
+Changes since beta.2:
+- features:
+  - the `@fullcalendar/react` plugin now uses React's real virtual DOM engine
+  - typescript definitions for every part of the API. baked in, so won't fall out of date.
+  - console warnings when given unknown options/props/listeners
+- minor API changes:
+  - `windowResize` and `datesDidUpdate` now receive an arg with a ViewApi object
+  - `eventSourceSuccess`, `eventSourceFailure`, and `moreLinkClick` can't be attached using .on()
+- distribution:
+  - working sourcemaps in all packages (#4719)
+  - the `fullcalendar` and `fullcalendar-scheduler` bundles
+    - are published as browser-globals only. no longer published as UMDs
+    - now include the Google Calendar connector in their main files
+    - don't provide copies of the other non-bundled plugins anymore (like rrule, moment, moment-timezone)
+    - both receive locale/locale-all entrypoints that will be automatically connected when loaded
+- fixes:
+  - Week numbers are not clickable as navLinks (#5427)
+  - Events of different heights in the same resource can be positioned incorrectly (#5413)
+  - Events displayed on wrong date when pushed down by previous events that span multiple days (#5408)
+  - `textColor` setting in Event Object not working anymore (#5355)
+  - `resourceAreaWidth` is not updated when changed with setOption (#5368)
+  - JS error when printing timeline view with expandRows (#5399)
+  - fixed Scheduler license keys not working with `fullcalendar-scheduler` bundle
+
+
+v5.0.0-beta.2 (2020-04-14)
+--------------------------
+
+Changes since beta.1:
+- feature: sticky header dates and footer scrollbar
+- feature: daygrid events with times render differently by default, with a dot
+- feature: a `datesDidUpdate` callback
+- renamed options:
+  - `defaultView` -> `initialView`
+  - `defaultDate` -> `initialDate`
+  - `header` -> `headerToolbar`
+  - `footer` -> `footerToolbar`
+  - `allDayDefault` -> `defaultAllDay`
+  - `eventRendering` -> `eventDisplay` (and `display` in event objects)
+  - `dir` -> `direction`
+- fix: sometimes event dragging and selecting broken after switching views (#5346)
+- fix: most likely fixed problem with infinite loop (#5352)
+- fix: timeline scrolling sometimes gets out of sync when using a scroll wheel (#4889)
+- fix: many other little bugfixes
+
+View the [full changelog](https://fullcalendar.io/docs/v5/upgrading-from-v4)
+
+
+v5.0.0-beta.1 (2020-04-06)
+--------------------------
+
+Read the [blog post](https://fullcalendar.io/blog/2020/04/v5-beta-released)
+
+
+v4.4.0 (2020-02-11)
+-------------------
+
+- configurable `googleCalendarApiBase` (#4974)
+- fix: navigating prev/next quickly might miss an event-source fetch (#4975)
+- new locales: ug (#180), uz (#3553)
+- locale fixes: fr (#5236), az (#5185), th (#5069), el (#5010), pt-br (#3812)
+
+
+v4.3.1 (2019-08-10)
+-------------------
+
+- `FullCalendar.version` had incorrect text
+- scheduler's releaseDate not written correctly,
+  resulting in license key warning always showing.
+
+
+v4.3.0 (2019-08-09)
+-------------------
+
+- HTML/CSS for timeline events has been refactored. BREAKING CHANGE if customized CSS.
+- timeline event titles sometimes overflow outside of element when time (#4928)
+- eventStartEditable false is not compatible with eventResourceEditable true (#4930)
+- calling Calendar::render after initial render causes bad sizing (#4718, #4723)
+- when list views destroyed, wouldn't call eventDestroy (#4727)
+- solve JS errors when switching views and using showNonCurrentDates (#4677, #4767)
+- prevent unnecessary scrollbars from appearing in daygrid views (4624, #4732)
+- draggedEvent start time is null in eventAllow when switching resources (#4932)
+- scrollToTime method honors a whole duration, not just a time (#4935)
+- some background events wouldn't recieve eventClick or hovering (#3148, #4750)
+- fix infinite recursion when custom view type is itself (#4198)
+- respect firstDay setting when weekNumberCalculation set to ISO (#4734)
+- fix typo in Danish (#4708)
+- adjust typescript def for setExtendedProp (#4679)
+- googleCalendarApiKey added to typescript options definition (#4772)
+- moment/luxon formatting same-day range with dash (#4686)
+- error importing moment plugin into typescript project (#4691, #4680, #4580)
+- refs to sourcemaps removed from dist (accidentally included in previous version)
+- distributing an ESM file, referenced by package.json's `module`
+- using a more portable SASS (#4626, #4651, #4671)
+
+
+v4.2.0 (2019-06-02)
+-------------------
+
+- fix recurring event expansion when event starts before view and has duration (#4617, #4635)
+- simple event recurring now allows a duration property on the event object
+- internal Calendar::setOptions method removed (never meant to be public)
+
+
+v4.1.0 (2019-04-24)
+-------------------
+
+- scrollToTime method (#467)
+- ISO8601 datetime strings with no 'T' not parsed in Safari (#4610)
+- all-day dropped events after third not being draggable (#4616)
+- dateClick/selecting sometime report wrong dates after calendar resize (#4608)
+- js error when using navLinks with header=false (#4619)
+- js error when more+ link and multiple async event sources (#4585)
+- timeGridEventMinHeight is not defined in OptionsInput interface (#4605)
+- Interdependent package semvers with carrot, use tilde (#4620)
+- dayRender now called for day columns in timeGrid views
+
+
+v4.0.2 (2019-04-03)
+-------------------
+
+Bugfixes:
+- eventAllow and constraints not respected when dragging event between calendars
+- viewSkeletonRender now in typedefs (#4589)
+- invalid draggedEvent properties in eventAllow for external dnd (#4575)
+- forceEventDuration not working with external dnd (#4597)
+- rrule displaying time when allDay is true (#4576)
+- rrule events not displaying at interval start (#4596)
+- prev button not initially working when starting on 31st of a month (#4595)
+- clicking X in popover generating a dayClick (#4584)
+- locale file used as single script tag not affecting calendar locale (#4581)
+- header "today" button not translated for pt and pt-br (#4591)
+- fa locale typo (#4582)
+
+
+v4.0.1 (2019-03-18)
+-------------------
+
+Read about all the changes in v4:
+https://fullcalendar.io/docs/upgrading-from-v3
+
+Obscure breaking changes from v3->v4 not mentioned elsewhere:
+- `touchMouseIgnoreWait` moved to `(packageRoot).config.touchMouseIgnoreWait`
+- `dataAttrPrefix` moved to `(packageRoot).config.dataAttrPrefix`
+
+Advancements since latest prerelease:
+- New styling for buttons and icons in header. New styling for events.
+- Bugfixes: #4539, #4503, #4534, #4505, #4477, #4467, #4454, #4458, #4483,
+  #4517, #4506, #4435, #4498, #4497, #4446, #4432, #4530
+
+NOTE: version "4.0.0" was skipped because of an NPM publishing error
+
+
+v3.10.0 (2019-01-10)
+--------------------
+
+POTENTIALLY BREAKING CHANGE:
+The jquery and moment packages have been moved to peerDependencies. If you are using
+NPM to install fullcalendar, you'll need to explicitly add jquery and moment as
+dependencies of your project. NPM will not install them automatically. (#4136, #4233)
+
+New Features:
+- events from a Google Calendar event source will receive extended props (#4123)
+- export more classes and util functions (#4124)
+- new locales: zh-hk (#4266), be (#4274)
+
+Bugfixes:
+- not accepting dayClicks/selects because of overflow-x:hidden on html/body (#3615)
+- event end time not displayed when duration is one slot, in agenda view (#3049)
+- switching views before event fetch resolves, JS error (#3689)
+- single-day allDay event not showing when time is specified (#3854)
+- prev button doesn't work when previous days are hidden by hiddenDays and dayCount
+  is greater than dateIncrement (#4202)
+- calendar locale not used in all moments objects (#4174)
+- background event background color does not completely fill cells in Chrome (#4145)
+- provide a delta for eventResize when resizing from start (#4135)
+- IE11 memory leak from not removing handler correctly (#4311)
+- make touchstart handlers passive (#4087)
+- fixed typescript definition for: eventAllow (#4243), selectAllow (#4319)
+- fixed locales: de (#4197, #4371), hu (#4203), tr (#4312), ja (#4329)
+
+
+v3.9.0 (2018-03-04)
+-------------------
+
+- Bootstrap 4 support (#4032, #4065, thx @GeekJosh)
+- add OptionsInput to the fullcalendar.d.ts exports (#4040, #4006)
+- columnHeaderFormat/columnHeaderHtml/columnHeaderText in .d.ts file (#4061, #4085)
+- list-view auto-height not working (#3346, #4071, thx @WhatTheBuild)
+- bump momentjs minimum version to 2.20.1, for locale fixes (#4014)
+- swedish week header translation fix (#4082)
+- dutch year translation (#4069)
+
+
 v3.8.2 (2018-01-30)
 -------------------
 
@@ -607,7 +1189,7 @@ A "more..." link when there are too many events on a day ([304]). Works with mon
 as well as the all-day section of the agenda views. New options:
 - `eventLimit`. a number or `true`
 - `eventLimitClick`. the `"popover`" value will reveal all events in a raised panel (the default)
-- `eventLimitText`
+- `moreLinkText`
 - `dayPopoverFormat`
 
 Changes related to height and scrollbars:

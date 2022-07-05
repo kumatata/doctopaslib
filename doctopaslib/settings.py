@@ -120,17 +120,19 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / 'agenda//static'
+STATIC_URL = 'agenda/static/'
+STATIC_ROOT = BASE_DIR / 'agenda/static'
 STATICFILES_FINDERS = [
     'djangobower.finders.BowerFinder',
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 ]
 BOWER_COMPONENTS_ROOT = 'agenda/components/'
 BOWER_INSTALLED_APPS = (
     'jquery',
     'jquery-ui',
     'bootstrap',
-    'fullcalendar#3.8.2'
+    'fullcalendar'
 )
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

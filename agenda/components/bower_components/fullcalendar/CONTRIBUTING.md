@@ -23,7 +23,7 @@ In the description of your [Pull Request][Using Pull Requests], please include r
 
 ## Contributing Locales
 
-Please edit the original files in the `locale/` directory. DO NOT edit anything in the `dist/` directory. The build system will responsible for merging FullCalendar's `locale/` data with the [MomentJS locale data].
+Please edit the original files in the `packages/core/locales/` directory.
 
 
 ## Other Ways to Contribute
@@ -33,86 +33,74 @@ Please edit the original files in the `locale/` directory. DO NOT edit anything 
 
 ## Getting Set Up
 
-You will need [Git][git], [Node][node], and NPM installed. For clarification, please view the [jQuery readme][jq-readme], which requires a similar setup.
-
-Also, you will need the [gulp-cli][gulp-cli] package installed globally (`-g`) on your system:
-
-	npm install -g gulp-cli
+You will need a bash-like environment with [Git][git], [Node][node] and [Yarn][yarn] installed.
 
 Then, clone FullCalendar's git repo:
 
-	git clone git://github.com/fullcalendar/fullcalendar.git
+	git clone --recursive git://github.com/fullcalendar/fullcalendar.git
 
-Enter the directory and install FullCalendar's dependencies:
+The recursive flag will clone all submodules as well. fullcalendar-scheduler and the example projects are located within submodules.
+
+Enter the directory and install FullCalendar's dependencies. You **must** use yarn. NPM will not work.
 
 	cd fullcalendar
-	npm install
+	yarn install
 
-
-## What to edit
-
-When modifying files, please do not edit the generated or minified files in the `dist/` directory. Please edit the original `src/` files.
+This has been tested on Mac, Linux, and Windows via ["Ubuntu on Windows"](https://ubuntu.com/wsl).
 
 
 ## Development Workflow
 
-After you make code changes, you'll want to compile the JS/CSS so that it can be previewed from the tests and demos. You can either manually rebuild each time you make a change:
+After you make code changes, you'll want to compile the JS/CSS so that it can be previewed from the tests and examples. You can either manually rebuild each time you make a change:
 
-	gulp dev
+	yarn build
 
 Or, you can run a script that automatically rebuilds whenever you save a source file:
 
-	gulp watch
-
-When you are finished, run the following command to write the distributable files into the `./dist/` directory:
-
-	gulp dist
+	yarn watch
 
 If you want to clean up the generated files, run:
 
-	gulp clean
+	yarn clean
 
 
-## Style Guide
+## Running Test
 
-Please follow the [Google JavaScript Style Guide] as closely as possible. With the following exceptions:
+To run the Karma tests, you must first run `yarn watch`. Then, in separate console, run:
 
-```js
-if (true) {
-}
-else { // please put else, else if, and catch on a separate line
-}
+  yarn test
 
-// please write one-line array literals with a one-space padding inside
-var a = [ 1, 2, 3 ];
+You will be given a URL to visit in your browser. When you visit this URL the tests will automatically run.
 
-// please write one-line object literals with a one-space padding inside
-var o = { a: 1, b: 2, c: 3 };
+If you want to execute the tests headlessly, run:
+
+  yarn test:ci
+
+
+## Git
+
+Because this repo has a few git submodules, it will be very convenient to set your default `git push` behavior to be recursive. Do something like this:
+
+```
+git config --global push.recurseSubmodules on-demand
 ```
 
-Other exceptions:
 
-- please ignore anything about Google Closure Compiler or the `goog` library
-- please do not write JSDoc comments
+## Linting
 
-Notes about whitespace:
+Run the command line tool to automatically check your code style:
 
-- **use *tabs* instead of spaces**
-- separate functions with *2* blank lines
-- separate logical blocks within functions with *1* blank line
-
-Run the command line tool to automatically check your style:
-
-	gulp lint
+	yarn lint
 
 
 ## Before Submitting your Code
 
 If you have edited code (including **tests** and **translations**) and would like to submit a pull request, please make sure you have done the following:
 
-1. Conformed to the style guide (successfully run `gulp lint`)
+1. Conformed to the style guide (successfully run `yarn lint`)
 
 2. Written automated tests. View the [Automated Test Readme]
+
 
 
 [Codepen/JSFiddle]: http://fullcalendar.io/wiki/Reporting-Bugs/
@@ -121,7 +109,6 @@ If you have edited code (including **tests** and **translations**) and would lik
 [MomentJS locale data]: https://github.com/moment/moment/tree/develop/locale
 [git]: http://git-scm.com/
 [node]: http://nodejs.org/
-[gulp-cli]: https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md
-[jq-readme]: https://github.com/jquery/jquery/blob/master/README.md#what-you-need-to-build-your-own-jquery
-[Google JavaScript Style Guide]: http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml
+[yarn]: https://yarnpkg.com/
+[Google JavaScript Style Guide]: https://google.github.io/styleguide/jsguide.html
 [Automated Test Readme]: https://github.com/fullcalendar/fullcalendar/wiki/Automated-Tests
