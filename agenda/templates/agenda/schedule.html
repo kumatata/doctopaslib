@@ -1,0 +1,34 @@
+{% extends "base.html" %} {% block body %}
+<script type="text/javascript">
+  window.onload = function () {
+    // let valueHour = document.getElementById("select_id").value;
+    // console.log(valueHour);
+    document
+      .getElementById("select_id")
+      .addEventListener("change", function () {
+        console.log("You selected: ", this.value);
+      });
+
+    document.getElementById("date").addEventListener("change", function () {
+      console.log("You selected: ", this.value);
+    });
+  };
+</script>
+<form action="" method="get" class="form-example">
+  <label for="date">Choisir un jour </label>
+  <input type="date" name="date" id="date" />
+  <select
+    class="form-select"
+    aria-label="Default select example"
+    id="select_id"
+  >
+    <option selected>Choisi une heure</option>
+    {% for heure in horraire %}
+    <option class="valueH" value="{{heure}}">{{heure}}</option>
+    {% endfor %}
+  </select>
+  <div class="form-example">
+    <input type="submit" value="Prend RDV!" />
+  </div>
+</form>
+{% endblock %}
