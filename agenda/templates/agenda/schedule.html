@@ -1,8 +1,7 @@
-{% extends "base.html" %} {% block body %}
+{% extends "base.html" %}
+ {% block content %}
 <script type="text/javascript">
   window.onload = function () {
-    // let valueHour = document.getElementById("select_id").value;
-    // console.log(valueHour);
     document
       .getElementById("select_id")
       .addEventListener("change", function () {
@@ -14,7 +13,7 @@
     });
   };
 </script>
-<form action="" method="get" class="form-example">
+<form action="{% url 'gestion' %}" method="get" class="form-example">
   <label for="date">Choisir un jour </label>
   <input type="date" name="date" id="date" />
   <select

@@ -27,3 +27,7 @@ def is_patient(user):
 def reservations_patient(request):
     reservations = Reservations.objects.filter(patient__id=request.user.id)
     return render(request, 'patient/gestion.html', {'reservations': reservations})
+
+def create_resa(request,date_resa,patient):
+    reservation = Reservations.objects.create(date_resa,patient)
+    return render(request, 'patient/gestion.html', {'reservation': reservation})

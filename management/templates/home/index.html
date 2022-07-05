@@ -2,6 +2,16 @@
 {% block content %}
 <h2>Choisissez une spécialité</h2>
 
+<script type="text/javascript">
+    window.onload = function () {
+      document
+        .getElementById("spe-select")
+        .addEventListener("change", function () {
+            var spe_selected = this.value
+        });
+
+    };
+  </script>
     <div>
         <select name="specialites" id="spe-select">
             {% for spe in specialities %}
@@ -16,7 +26,7 @@
                 <p>{{ spe.praticien.get_full_name}}</p>
                 <p>{{ spe.name }} </p>
                 {% include "home/prestations.html" with prestations=spe.prestations_set.all %}
-                <button>Prendre Rendez-Vous</button>
+                <a  href="{% url 'schedule'%}"><button>Prendre Rendez-Vous</button></a>
         </div>
         {% endfor %}
     </section>

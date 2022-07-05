@@ -38,9 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'management.apps.ManagementConfig',
-    'schedule',
     'agenda.apps.AgendaConfig',
-    'djangobower',
 ]
 
 MIDDLEWARE = [
@@ -123,7 +121,6 @@ USE_TZ = True
 STATIC_URL = 'agenda/static/'
 STATIC_ROOT = BASE_DIR / 'agenda/static'
 STATICFILES_FINDERS = [
-    'djangobower.finders.BowerFinder',
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 ]
