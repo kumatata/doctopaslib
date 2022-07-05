@@ -8,7 +8,7 @@
             <p>{{ rese.date_reservation }}</p>
             <p> {{ rese.prestation.specialite.praticien.get_full_name}} | {{rese.prestation.name}} </p>
             <p> {{rese.patient.get_full_name}}</p>
-            <button> Reprendre rendez-vous avec {{rese.prestation.specialite.praticien.get_full_name }} </button>
+            <a  href="{% url 'schedule'%}"><button> Reprendre rendez-vous avec {{rese.prestation.specialite.praticien.get_full_name }} </button></a>
         </div>
         {% endfor %}
     </section>
