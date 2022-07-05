@@ -1,0 +1,28 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'management/style.css' %}">
+
+<h1>DOCTOPASLIB</h1>
+
+<main>
+    <h2>Choisissez une spécialité</h2>
+
+    <div>
+        <select name="specialites" id="spe-select">
+            {% for spe in specialities %}
+            <option value="{% url 'specialites' spe.id %}"> {{ spe.name }} </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <section id="list-specialities">
+        {% for spe in specialities %}
+        <div id="praticien-card">
+                <p>{{ spe.praticien.get_full_name}}</p>
+                <p>{{ spe.name }} </p>
+                {% include "home/prestations.html" %}
+                <button>Prendre Rendez-Vous</button>
+        </div>
+        {% endfor %}
+    </section>
+</main>
+

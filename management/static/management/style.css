@@ -1,0 +1,48 @@
+h1{
+    text-align: center;
+}
+
+main{
+    margin: 3rem;
+    text-align: -webkit-center;
+}
+
+section{
+    margin-top:2rem;
+}
+
+select{
+    width: 39%;
+    height: 56px;
+    padding: 6px 16px;
+    border-radius: 5px;
+    border: 2px solid #61a2ffee;;
+    color: #61a2ffee;;
+    text-transform: uppercase;
+}
+
+#praticien-card{
+    background-color: #fff;
+    border: 1px solid #eef2f7;
+    border-radius: 4px;
+    width: 34%;
+    margin-bottom: 3rem;
+    min-height: 253px;
+    transition: border .4s ease-out,box-shadow .4s ease-out;
+    padding: 30px;
+    box-shadow: 9px 10px 18px 0px #0003;
+}
+
+button{
+    align-items: center;
+    display: flex;
+    background-color: #61a2ffee;
+    color: #fff;
+    width: 48%;
+    height:50px;
+    cursor: pointer;
+    border-color: #61a2ffee;
+    border-radius: 8px;
+    justify-content: center;
+    margin-top:1rem;
+}
