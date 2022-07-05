@@ -19,7 +19,7 @@
         <div id="praticien-card">
                 <p>{{ spe.praticien.get_full_name}}</p>
                 <p>{{ spe.name }} </p>
-                {% include "home/prestations.html" %}
+                {% include "home/prestations.html" with prestations=spe.prestations_set.all %}
                 <button>Prendre Rendez-Vous</button>
         </div>
         {% endfor %}
