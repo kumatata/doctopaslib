@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
             name='Prestations',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('names', django.contrib.postgres.fields.ArrayField(base_field=django.contrib.postgres.fields.ArrayField(base_field=models.CharField(default=list, max_length=10), size=None), size=None)),
+                ('name', models.CharField(max_length=20)),
             ],
         ),
         migrations.CreateModel(

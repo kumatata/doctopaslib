@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.contrib.postgres.fields import ArrayField
 
 
 class Specialites(models.Model):
@@ -8,7 +7,7 @@ class Specialites(models.Model):
     praticien = models.ForeignKey(User,on_delete=models.CASCADE)
 
 class Prestations(models.Model):
-    names =  ArrayField(ArrayField(models.CharField(max_length=10, default=list)))
+    name =  models.CharField(max_length=200)
     specialite = models.ForeignKey(Specialites, on_delete=models.CASCADE)
 
 
